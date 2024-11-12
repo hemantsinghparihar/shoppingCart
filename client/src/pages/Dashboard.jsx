@@ -1,19 +1,26 @@
 import React,{useState,useEffect} from 'react'
 import prodServices from '../services/productsApi';
 import ProductsComponents from '../component/ProductsComponents';
+import { setProducts,fetchProductsRequest } from '../features/shoppingSlice';
+import { useSelector,useDispatch } from 'react-redux';
 
 function Dashboard() {
+  const dispatch=useDispatch()
   const [activeTab, setActiveTab]=useState(0)
-  const [products,setProducts]=useState([]);
-console.log('✌️products --->', products);
+  // const [products,setProducts]=useState([]);
+  const products=useSelector((state)=>state.shop.products)
+  console.log('✌️products in dashboard --->', products);
 
   useEffect(()=>{
-    prodServices.getProducts().then((res)=>{
-      console.log('✌️res --->', res);
-      setProducts(res.products)
+    // prodServices.getProducts().then((res)=>{
+    //   console.log('✌️res --->', res);
+    //   dispatch(setProducts(res.products))
       
-    })
-  },[])
+    // });
+
+    dispatch(fetchProductsRequest())
+    
+  },[dispatch])
 
   const categories = ['All', 'Beauty', 'Furniture', 'Groceries'];
 

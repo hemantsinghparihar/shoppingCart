@@ -1,11 +1,12 @@
 import axios from 'axios'
+import config from '../config/config';
 
-const baseUrl='https://dummyjson.com'
+const baseUrl=config.baseUrl
 
 const loginUser=async (userData)=>{
 console.log('✌️userData --->', userData);
 try {
-    const response = await axios.post('https://dummyjson.com/user/login', userData);
+    const response = await axios.post(`${baseUrl}/user/login`, userData);
     return response.data;
   } catch (error) {
    
